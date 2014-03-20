@@ -103,6 +103,7 @@ class bibtool:
 				{'author':Person('Calot, Enrique'),'apply':'author-ecalot'},
 				{'author':Person('Merlino, Hernan'),'apply':'author-hmerlino'},
 				{'author':Person('Ierache, Jorge Salvador'),'apply':'author-jierache'},
+				{'author':Person('Pirra, Francisco'),'apply':'author-fpirra'},
 				{'author':Person('Rodriguez, Juan Manuel'),'apply':'author-jmrodriguez'}
 			]
 		for bib_id in self.bibdata.entries:
