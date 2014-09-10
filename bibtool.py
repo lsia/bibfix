@@ -6,12 +6,14 @@ from pybtex.core import Person
 import io
 import difflib,string
 #pybtex.core.Person
+import months
 
 class bibtool:
 	def __init__(self,file):
 		#open a bibtex file
 		parser = bibtexin.Parser()
 		self.bibdata = parser.parse_file(file) #"../plan.bib")
+		self.months=months.months()
 
 	def showEntries(self):
 		aux=[]
@@ -77,6 +79,12 @@ class bibtool:
 		(lang,val)=langid.classify(' '.join([fields[ty] if ty in fields else '' for ty in checkfrom]))
 		return lang
 
+	def suggestMonth(self,key):
+		fields=self.bibdata.entries[key].fields
+		if 'month' in fields:
+			return self.months.cmp(fields['month'])
+		return None
+
 	@staticmethod
 	def readKeywords(string):
 		return [kw for kw in string.replace(';',',').replace(':',',').replace(', ',',').split(',') if kw[0:5]!='lsia-']
@@ -110,7 +118,9 @@ class bibtool:
 				{'author':Person('Merlino, Hernan'),'apply':'author-hmerlino'},
 				{'author':Person('Ierache, Jorge Salvador'),'apply':'author-jierache'},
 				{'author':Person('Pirra, Francisco'),'apply':'author-fpirra'},
-				{'author':Person('Rodriguez, Juan Manuel'),'apply':'author-jmrodriguez'}
+				{'author':Person('Rodriguez, Juan Manuel'),'apply':'author-jmrodriguez'},
+				{'author':Person('Liguori, Ariel'),'apply':'author-aliguori'},
+				{'author':Person("Gonz{\\'a}lez, Nahuel"),'apply':'author-ngonzalez'}
 			]
 		for bib_id in self.bibdata.entries:
 			try:

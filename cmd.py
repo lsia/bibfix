@@ -59,6 +59,12 @@ class toolLayer():
 		paper_f=self.bib.get(key).fields
 		current=paper_f['language'] if 'language' in paper_f else ''
 		return (sug,current)
+
+	def suggestMonth(self,key):
+		sug=self.bib.suggestMonth(key)
+		paper_f=self.bib.get(key).fields
+		current=paper_f['month'] if 'month' in paper_f else None
+		return (sug,current)
 	
 	def put(self,id,field,data):
 		if ',' in id:

@@ -12,6 +12,7 @@ def showhelp():
 	print "p[ut] (id) (field) (raw data)                         - set data or delete field if raw data empty (commited instantly)"
 	print "(suggest|sg) (id)                                     - Suggest keywords"
 	print "(suglang|sl)                                          - Suggest language"
+	print "(sugmonth|sm)                                         - Suggest month"
 	print "c[heck]                                               - Integrity Check"
 	print "st[atus]                                              - Check Status"
 	print "(i|commit)                                            - Commit Changes"
@@ -42,10 +43,20 @@ while stay:
 				if cur=='':
 					ask=raw_input("Accept suggested language '%s' in paper %s? [Yes/No/Cancel] "%(sug,k))
 				else:
-					ask=raw_input("Accept to chenge suggested language '%s' to '%s' in paper %s? [Yes/No/Cancel] "%(cur,sug,k))
+					ask=raw_input("Accept to change suggested language '%s' to '%s' in paper %s? [Yes/No/Cancel] "%(cur,sug,k))
 				if (ask=='y'):
 					print "setting lang %s to %s" % (sug,k)
 					tl.put(k,'language',sug)
+				elif (ask=='c'):
+					break
+	elif args[0]=='sugmonth' or args[0]=='sm':
+		for k in tl.getkeys():
+			(sug,cur)=tl.suggestMonth(k)
+			if (sug!=cur and sug):
+				ask=raw_input("Accept to change suggested month '%s' to '%s' in paper %s? [Yes/No/Cancel] "%(cur,sug,k))
+				if (ask=='y'):
+					print "setting lang %s to %s" % (sug,k)
+					tl.put(k,'month',sug)
 				elif (ask=='c'):
 					break
 	elif args[0]=='help' or args[0]=='?'  or args[0]=='h':
