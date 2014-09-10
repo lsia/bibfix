@@ -24,7 +24,6 @@ class bibtool:
 		for line in aux:
 			print line
 
-
 	def getAuthors(self):
 		authors=set()
 		for bib_id in self.bibdata.entries:
@@ -70,6 +69,13 @@ class bibtool:
 		authors.sort()
 		for author in authors:
 			print author
+
+	def suggestLanguage(self,key):
+		fields=self.bibdata.entries[key].fields
+		checkfrom=['title','abstract']
+		import langid
+		(lang,val)=langid.classify(' '.join([fields[ty] if ty in fields else '' for ty in checkfrom]))
+		return lang
 
 	@staticmethod
 	def readKeywords(string):

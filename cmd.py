@@ -50,6 +50,15 @@ class toolLayer():
 	
 	def showtitles(self):
 		self.bib.showEntries()
+
+	def getkeys(self):
+		return self.bib.getEntries()
+
+	def suggestLanguage(self,key):
+		sug=self.bib.suggestLanguage(key)
+		paper_f=self.bib.get(key).fields
+		current=paper_f['language'] if 'language' in paper_f else ''
+		return (sug,current)
 	
 	def put(self,id,field,data):
 		if ',' in id:
