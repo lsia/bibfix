@@ -12,7 +12,7 @@ class months:
 
 	def cmp(self,txt):
 		import difflib
-		m=difflib.get_close_matches(txt,self.words,1,0.8)
+		m=difflib.get_close_matches(txt.lower(),self.words,1,0.8)
 		if m:
 			return self.original[self.lst[m[0]]-1]
 		else:
