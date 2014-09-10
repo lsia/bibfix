@@ -122,9 +122,14 @@ class toolLayer():
 
 	def capkeywords(self,keys):
 		for key in keys:
-			line=self.cap_priv(key,string.capwords,self.keywords)
-			self.action_keywords.append(line)
-			print "fix keyw %s -> %s" % line
+			s=key.split('-')
+			if len(s)==2:
+				(start,end)=s
+				self.capkeywords(['k%d' % k for k in range(int(start[1:]),int(end))])
+			else:
+				line=self.cap_priv(key,string.capwords,self.keywords)
+				self.action_keywords.append(line)
+				print "fix keyw %s -> %s" % line
 	
 	@staticmethod
 	def capauth(text):
