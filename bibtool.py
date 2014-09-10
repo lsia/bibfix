@@ -1,4 +1,5 @@
 from pybtex.database.input import bibtex as bibtexin
+import re
 from pybtex.database.output import bibtex as bibtexout
 from pybtex.core import Person
 #from pybtex.utils import OrderedCaseInsensitiveDict
@@ -58,7 +59,6 @@ class bibtool:
 			del self.bibdata.entries[key].fields[kid]
 
 	def checkAuthors(self):
-		import re
 		authors=self.getAuthors()
 		print "Checking incomplete names:"
 		for author in authors:
@@ -144,7 +144,7 @@ class bibtool:
 		for bib_id in self.bibdata.entries:
 			b = self.bibdata.entries[bib_id].fields
 			try:
-				au=self.bibdata.entries[bib_id].persons["author"][0].last()[0].lower()
+				au=re.sub('[^a-z]', '',''.join(self.bibdata.entries[bib_id].persons["author"][0].last()).lower())
 				yr=b['year'][2:]
 				key=au+yr
 				if key in result:
