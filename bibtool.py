@@ -114,7 +114,7 @@ class bibtool:
 	def processKeywords(self,rules=[],replace=[]):
 		if not rules:
 			rules=[
-				{'author':Person('Calot, Enrique'),'apply':'author-ecalot'},
+				{'author':Person('Calot, Enrique P.'),'apply':'author-ecalot'},
 				{'author':Person('Merlino, Hernan'),'apply':'author-hmerlino'},
 				{'author':Person('Ierache, Jorge Salvador'),'apply':'author-jierache'},
 				{'author':Person('Pirra, Francisco'),'apply':'author-fpirra'},
