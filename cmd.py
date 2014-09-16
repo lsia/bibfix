@@ -231,7 +231,8 @@ class toolLayer():
 		p_pdf=set(pdfextract.getPapers())
 		print "- Missing pdf"
 		for id in sorted(p_bibtex-p_pdf):
-			print " * %s" % id
+			fatal='keywords' in self.bib.get(id).fields and 'lsia-' in self.bib.get(id).fields['keywords']
+			print " * %s%s" % (id,'' if not fatal else ' !fatal')
 		print "- Missing paper/unmatched pdf"
 		for id in sorted(p_pdf-p_bibtex):
 			print " * %s" % id
