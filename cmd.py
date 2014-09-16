@@ -182,6 +182,11 @@ class toolLayer():
 		self.bib.processKeywords(replace=self.action_keywords)
 		for (fr,to) in self.action_keys:
 			print "renaming key %s to %s" % (fr,to)
+			try:
+				os.rename('pdf/%s.pdf'%fr,'pdf/%s.pdf'%to)
+				print 'file renamed too'
+			except:
+				pass
 			self.bib.renameKey(fr,to)
 		self.rehash()
 
@@ -222,6 +227,14 @@ class toolLayer():
 				data=self.bib.get(id).fields
 				if not k in data:
 					print " * %s" % id
+		p_bibtex=set(entries)
+		p_pdf=set(pdfextract.getPapers())
+		print "- Missing pdf"
+		for id in p_bibtex-p_pdf:
+			print " * %s" % id
+		print "- Missing paper/unmatched pdf"
+		for id in p_pdf-p_bibtex:
+			print " * %s" % id
 	
 	def suggestKeywords(self,key):
 		sug=self.bib.suggestKeywords(key)
@@ -271,22 +284,13 @@ class toolLayer():
 			else:
 				print "* %s: %s" % (k,meta[k])
 
-#affiliations. TODO: move to pdfextract
 	def make(self):
-		entries=self.bib.getEntries()
-		for id in entries:
-			data=self.bib.get(id).fields
-			try:
-				afs=bibtool.bibtool.readKeywords(data['affiliations'])
-			except(KeyError):
-				afs=[]
-			for af in afs:
-				print id,af
-				#if file exists
-				if not os.path.exists("affiliations/%s" % af):
-					os.makedirs("affiliations/%s" % af)
+		p_bibtex=set(self.bib.getEntries())
+		p_pdf=set(pdfextract.getPapers())
+		
+		print p_bibtex,p_pdf
 				#cp "pdf/%s.pdf" % id , "affiliations/%s/%s.pdf" % (af,id)
 				#TODO: process pdf and metadata
-				if not 'url' in data:
-					self.put(id,'url','http://lsia.fi.uba.ar/papers/%s.pdf' % id) #TODO: read from config/affiliation
+				#if not 'url' in data:
+				#	self.put(id,'url','http://lsia.fi.uba.ar/papers/%s.pdf' % id) #TODO: read from config/affiliation
 

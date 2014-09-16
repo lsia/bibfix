@@ -1,4 +1,4 @@
-import subprocess,re,json
+import subprocess,re,json,os
 
 def getPipe(file):
 	return subprocess.Popen("pdftotext %s -|iconv -f 'latin1' -t 'utf8'" % file, shell=True, stdout=subprocess.PIPE).stdout
@@ -37,4 +37,13 @@ def getMetadata(file):
 
 #print processPdf(sys.argv[1],r"([aA][bB][sS][tT][rR][aA][cC][tT]|[rR]esumen)")
 #print processPdf(sys.argv[1],r"(eference|ibliogra|EFEREN|IBLIOGRA)")
+
+def getPapers():
+	out=[]
+	for fn in os.listdir('pdf/'):
+		m=re.match(r"^([a-z0-9]*)\.pdf$",fn)
+		if m:
+			out.append(m.group(1))
+	out.sort()
+	return out
 

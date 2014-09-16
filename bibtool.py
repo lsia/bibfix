@@ -204,15 +204,7 @@ class bibtool:
 		return result
 
 	def renameKey(self,oldKey,newKey):
-		#aux=self.bibdata.entries
-		#self.bibdata.entries=aux
 		self.bibdata.entries=OrderedCaseInsensitiveDict([(k if k!=oldKey else newKey,v) for (k,v) in self.bibdata.entries.items()])
-		#self.bibdata.entries[newKey] = aux
-		#entry=self.bibdata.entries[oldKey]
-		#del self.bibdata.entries[oldKey]
-		#self.bibdata.add_entry(newKey,entry)
-		#TODO rename file
-
 
 	def capitalizeTitle(self,key):
 		b = self.bibdata.entries[key].fields
