@@ -293,5 +293,5 @@ class toolLayer():
 			if not 'url' in data:
 				self.put(id,'url','http://lsia.fi.uba.ar/papers/%s.pdf' % id) #TODO: read from config/affiliation
 			else:
-				if not 'urllsia' in data:
+				if not 'urllsia' in data and data['url']!='http://lsia.fi.uba.ar/papers/%s.pdf' % id:
 					self.put(id,'urllsia','http://lsia.fi.uba.ar/papers/%s.pdf' % id)
