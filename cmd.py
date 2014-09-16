@@ -220,7 +220,7 @@ class toolLayer():
 		for key in titles:
 			(v,wrong,right)=titles[key]
 			print ' * %-7s: (%3.2f) %s -> %s' % (key,v,wrong,right)
-		entries=self.bib.getEntries()
+		entries=sorted(self.bib.getEntries())
 		for k in ['abstract','language','title','keywords']:
 			print "- Missing %s" % k
 			for id in entries:
@@ -230,10 +230,10 @@ class toolLayer():
 		p_bibtex=set(entries)
 		p_pdf=set(pdfextract.getPapers())
 		print "- Missing pdf"
-		for id in p_bibtex-p_pdf:
+		for id in sorted(p_bibtex-p_pdf):
 			print " * %s" % id
 		print "- Missing paper/unmatched pdf"
-		for id in p_pdf-p_bibtex:
+		for id in sorted(p_pdf-p_bibtex):
 			print " * %s" % id
 	
 	def suggestKeywords(self,key):

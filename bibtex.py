@@ -120,8 +120,6 @@ class Writer(BaseWriter):
 #            for role in ('author', 'editor'):
             for role, persons in entry.persons.iteritems():
                 write_persons(persons, role)
-            k=entry.fields.keys()
-            k.sort()
-            for type in k:
+            for type in sorted(entry.fields.keys()):
                 write_field(type, entry.fields[type])
             stream.write(u'\n}\n\n')
