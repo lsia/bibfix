@@ -2,7 +2,7 @@ from pybtex.database.input import bibtex as bibtexin
 import re
 from pybtex.database.output import bibtex as bibtexout
 from pybtex.core import Person
-#from pybtex.utils import OrderedCaseInsensitiveDict
+from pybtex.utils import OrderedCaseInsensitiveDict
 import io
 import difflib,string
 #pybtex.core.Person
@@ -204,11 +204,13 @@ class bibtool:
 		return result
 
 	def renameKey(self,oldKey,newKey):
-		aux=self.bibdata.entries
-		self.bibdata.entries=aux
-		#self.bibdata.entries=OrderedCaseInsensitiveDict([(k if k!=oldKey else newKey,aux[k]) for k in aux])
+		#aux=self.bibdata.entries
+		#self.bibdata.entries=aux
+		self.bibdata.entries=OrderedCaseInsensitiveDict([(k if k!=oldKey else newKey,v) for (k,v) in self.bibdata.entries.items()])
 		#self.bibdata.entries[newKey] = aux
+		#entry=self.bibdata.entries[oldKey]
 		#del self.bibdata.entries[oldKey]
+		#self.bibdata.add_entry(newKey,entry)
 		#TODO rename file
 
 

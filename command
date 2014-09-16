@@ -6,21 +6,21 @@ tl=cmd.toolLayer(file)
 
 def showhelp():
 	print "Commands"
-	print "s[how] (k[eywords]|a[uthors]|t[itles]|p[aper] (id)|f) - Show stuff"
-	print "f[ix] (k[eyword]|a[uthor]|t[itle]) (id) (text)        - Fix stuff. Reeplace with '.' to delete"
+	print "s[how] (k[eywords]|a[uthors]|t[itles]|p[aper] (id)|f)  - Show stuff"
+	print "f[ix] (k[eyword]|a[uthor]|t[itle]|p[aper]) (id) (text) - Fix stuff. Reeplace with '.' to delete"
 	#print "m[atch] (keyword regexp) (text)          - Fix matched keyword"
-	print "p[ut] (id) (field) (raw data)                         - set data or delete field if raw data empty (commited instantly)"
-	print "(suggest|sg) (id)                                     - Suggest keywords"
-	print "(suglang|sl)                                          - Suggest language"
-	print "(sugmonth|sm)                                         - Suggest month"
-	print "c[heck]                                               - Integrity Check"
-	print "st[atus]                                              - Check Status"
-	print "(i|commit)                                            - Commit Changes"
-	print "r[ollback]                                            - Undo unocmmited changes"
-	print "s[ave]                                                - Saves %s" % file
-	print "(P|pdf) (a[bstarct]|f[ull]|m[eta]) (id)               - Show the contents of the paper"
-	print "(capitalize|C) (k[eyword]|a[uthor]|t[itle]) (id)      - CAPITALIZE FIRST WORD -> Capitalize First Word"
-	print "make                                                  - Copies pdf papers to public directory"
+	print "p[ut] (id) (field) (raw data)                          - set data or delete field if raw data empty (commited instantly)"
+	print "(suggest|sg) (id)                                      - Suggest keywords"
+	print "(suglang|sl)                                           - Suggest language"
+	print "(sugmonth|sm)                                          - Suggest month"
+	print "c[heck]                                                - Integrity Check"
+	print "st[atus]                                               - Check Status"
+	print "(i|commit)                                             - Commit Changes"
+	print "r[ollback]                                             - Undo unocmmited changes"
+	print "s[ave]                                                 - Saves %s" % file
+	print "(P|pdf) (a[bstarct]|f[ull]|m[eta]) (id)                - Show the contents of the paper"
+	print "(capitalize|C) (k[eyword]|a[uthor]|t[itle]) (id)       - CAPITALIZE FIRST WORD -> Capitalize First Word"
+	print "make                                                   - Copies pdf papers to public directory"
 
 stay=True
 while stay:
