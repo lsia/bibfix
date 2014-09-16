@@ -288,10 +288,10 @@ class toolLayer():
 	def make(self):
 		p_bibtex=set(self.bib.getEntries())
 		p_pdf=set(pdfextract.getPapers())
-		
-		print p_bibtex,p_pdf
-				#cp "pdf/%s.pdf" % id , "affiliations/%s/%s.pdf" % (af,id)
-				#TODO: process pdf and metadata
-				#if not 'url' in data:
-				#	self.put(id,'url','http://lsia.fi.uba.ar/papers/%s.pdf' % id) #TODO: read from config/affiliation
-
+		for id in p_bibtex & p_pdf:
+			data=self.bib.get(id).fields
+			if not 'url' in data:
+				self.put(id,'url','http://lsia.fi.uba.ar/papers/%s.pdf' % id) #TODO: read from config/affiliation
+			else:
+				if not 'urllsia' in data:
+					self.put(id,'urllsia','http://lsia.fi.uba.ar/papers/%s.pdf' % id)
