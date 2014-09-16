@@ -39,11 +39,5 @@ def getMetadata(file):
 #print processPdf(sys.argv[1],r"(eference|ibliogra|EFEREN|IBLIOGRA)")
 
 def getPapers():
-	out=[]
-	for fn in os.listdir('pdf/'):
-		m=re.match(r"^([a-z0-9]*)\.pdf$",fn)
-		if m:
-			out.append(m.group(1))
-	out.sort()
-	return out
+	return sorted([m.group(1) for m in [re.match(r"^([a-z0-9]*)\.pdf$",fn) for fn in os.listdir('pdf/')] if m])
 
