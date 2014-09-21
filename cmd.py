@@ -209,12 +209,12 @@ class toolLayer():
 		data=self.bib.checkKeys()
 		print "- The name does not comply with the standard"
 		for bad_name in data['bad names']:
-			print ' * %-7s: %s' % bad_name
+			print (' * %-7s: %s' % bad_name) + (' cmd: f p %s %s' % tuple(reversed(bad_name)))
 		print "- Serialized in the wrong way"
 		for (key,keylist) in data['bad_serial']:
 			print ' * %-7s:' % key
 			for d in keylist:
-				print '  * %-7s -> %s' % d
+				print ('  * %-7s -> %s' % d) + (' cmd: f p %s %s' % d)
 		print "- Bad titles"
 		titles=self.bib.checkTitles()
 		for key in titles:
