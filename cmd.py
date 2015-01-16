@@ -1,5 +1,7 @@
 import bibtool,string,json,re,pdfextract,os
 
+PDF_PATH='library/%s.pdf'
+
 class toolLayer():
 
 	def getListFromSet(self,specialList,id):
@@ -183,7 +185,7 @@ class toolLayer():
 		for (fr,to) in self.action_keys:
 			print "renaming key %s to %s" % (fr,to)
 			try:
-				os.rename('pdf/%s.pdf'%fr,'pdf/%s.pdf'%to)
+				os.rename(PDF_PATH%fr,PDF_PATH%to)
 				print 'file renamed too'
 			except:
 				pass
@@ -270,13 +272,13 @@ class toolLayer():
 #pdf
 
 	def pdfGetAbstract(self,file,all=False):
-		print pdfextract.getAbstract('pdf/%s.pdf' % file,all)
+		print pdfextract.getAbstract(PDF_PATH % file,all)
 
 	def pdfFile(self,file):
-		print pdfextract.fullFile('pdf/%s.pdf' % file)
+		print pdfextract.fullFile(PDF_PATH % file)
 
 	def pdfMetadata(self,file):
-		meta=pdfextract.getMetadata('pdf/%s.pdf' % file)
+		meta=pdfextract.getMetadata(PDF_PATH % file)
 		for k in meta:
 			if k in ['keywords','Keywords']:
 				print "* Keywords:"
