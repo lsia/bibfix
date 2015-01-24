@@ -193,6 +193,7 @@ class toolLayer():
 		self.rehash()
 
 	def check(self):
+		exceptions={'online','misc'}
 		e1=[]
 		e2=[]
 		for (key,author) in self.authors:
@@ -223,18 +224,19 @@ class toolLayer():
 			(v,wrong,right)=titles[key]
 			print ' * %-7s: (%3.2f) %s -> %s' % (key,v,wrong,right)
 		entries=sorted(self.bib.getEntries())
-		for k in ['abstract','language','title','keywords']:
-			print "- Missing %s" % k
+		for (field,check) in [('abstract',False),('language',True),('title',True),('keywords',False)]:
+			print "- Missing %s" % field
 			for id in entries:
 				data=self.bib.get(id).fields
-				if not k in data:
+				if (check or not self.bib.get(id).type.lower() in exceptions) and not field in data: #if (I MUST check or not exception type) and the field does not exists
 					print " * %s" % id
 		p_bibtex=set(entries)
 		p_pdf=set(pdfextract.getPapers())
 		print "- Missing pdf"
 		for id in sorted(p_bibtex-p_pdf):
-			fatal='keywords' in self.bib.get(id).fields and 'lsia-' in self.bib.get(id).fields['keywords']
-			print " * %s%s" % (id,'' if not fatal else ' !fatal')
+			if not self.bib.get(id).type.lower() in exceptions:
+				fatal='keywords' in self.bib.get(id).fields and 'lsia-' in self.bib.get(id).fields['keywords']
+				print " * %s%s" % (id,'' if not fatal else ' !fatal')
 		print "- Missing paper/unmatched pdf"
 		for id in sorted(p_pdf-p_bibtex):
 			print " * %s" % id
