@@ -79,10 +79,10 @@ class bibtool:
 		(lang,val)=langid.classify(' '.join([fields[ty] if ty in fields else '' for ty in checkfrom]))
 		return lang
 
-	def suggestMonth(self,key):
+	def suggestMonth(self,key,number=False):
 		fields=self.bibdata.entries[key].fields
 		if 'month' in fields:
-			return self.months.cmp(fields['month'])
+			return self.months.cmp_number(fields['month']) if number else self.months.cmp(fields['month'])
 		return None
 
 	@staticmethod
@@ -212,12 +212,13 @@ class bibtool:
 					c=datetime.datetime.strptime(b['date'], "%Y-%m-%d")
 					for checking in ['year','month']: #,'day']:
 						if not checking in b:
-							result.append("Missing %s for %s, should be %d" % (checking,bib_id,getattr(c,checking)))
+							result.append(('missing',"Missing %s for %s, should be %d", (checking,bib_id,getattr(c,checking))))
 				except:
-					result.append("Wrong date for %s: %s" % (bib_id,b['date']))
+					result.append(('wrong',"Wrong date for %s: %s" , (bib_id,b['date'])))
 			else:
 				if 'day' in b:
-					result.append("Missing date for %s, but day is present: %s-%s-%s" % (bib_id,b['year'] if 'year' in b else 'error', b['month'] if 'month' in b else 'error', b['day']))
+					m=self.suggestMonth(bib_id,True)
+					result.append('fix',"Missing date for %s, but day is present: %s-%02d-%s" , (bib_id,b['year'] if 'year' in b else 'error', m or 0, b['day'])))
 		return result
 
 	def renameKey(self,oldKey,newKey):

@@ -59,6 +59,16 @@ while stay:
 					tl.put(k,'month',sug)
 				elif (ask=='c'):
 					break
+	elif args[0]=='sugdate' or args[0]=='sd': #TODO
+		for k in tl.getkeys():
+			(sug,cur)=tl.suggestMonth(k)
+			if (sug!=cur and sug):
+				ask=raw_input("Accept to change suggested month '%s' to '%s' in paper %s? [Yes/No/Cancel] "%(cur,sug,k))
+				if (ask=='y'):
+					print "setting lang %s to %s" % (sug,k)
+					tl.put(k,'month',sug)
+				elif (ask=='c'):
+					break
 	elif args[0]=='help' or args[0]=='?'  or args[0]=='h':
 		showhelp()
 	elif args[0]=='show' or args[0]=='s':

@@ -18,3 +18,8 @@ class months:
 		else:
 			return None
 
+	def cmp_number(self,txt):
+		aux=self.cmp(txt)
+		if aux:
+			aux=self.original.index(aux)+1
+		return aux
