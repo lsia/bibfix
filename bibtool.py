@@ -1,5 +1,5 @@
 from pybtex.database.input import bibtex as bibtexin
-import re
+import re,datetime
 from pybtex.database.output import bibtex as bibtexout
 from pybtex.core import Person
 from pybtex.utils import OrderedCaseInsensitiveDict
@@ -201,6 +201,23 @@ class bibtool:
 					result[bib_id]=(ratio,tit,string.capwords(tit))
 			except(KeyError):
 				print "Missing title: %s" % bib_id
+		return result
+
+	def checkDates(self):
+		result=[]
+		for bib_id in self.bibdata.entries:
+			b = self.bibdata.entries[bib_id].fields
+			if 'date' in b:
+				try:
+					c=datetime.datetime.strptime(b['date'], "%Y-%m-%d")
+					for checking in ['year','month']: #,'day']:
+						if not checking in b:
+							result.append("Missing %s for %s, should be %d" % (checking,bib_id,getattr(c,checking)))
+				except:
+					result.append("Wrong date for %s: %s" % (bib_id,b['date']))
+			else:
+				if 'day' in b:
+					result.append("Missing date for %s, but day is present: %s-%s-%s" % (bib_id,b['year'] if 'year' in b else 'error', b['month'] if 'month' in b else 'error', b['day']))
 		return result
 
 	def renameKey(self,oldKey,newKey):

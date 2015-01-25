@@ -240,6 +240,10 @@ class toolLayer():
 		print "- Missing paper/unmatched pdf"
 		for id in sorted(p_pdf-p_bibtex):
 			print " * %s" % id
+		errs=self.bib.checkDates()
+		print "- Date errors"
+		for msg in sorted(errs):
+			print " * %s" % msg
 	
 	def suggestKeywords(self,key):
 		sug=self.bib.suggestKeywords(key)
