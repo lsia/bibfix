@@ -212,13 +212,13 @@ class bibtool:
 					c=datetime.datetime.strptime(b['date'], "%Y-%m-%d")
 					for checking in ['year','month']: #,'day']:
 						if not checking in b:
-							result.append(('missing',"Missing %s for %s, should be %d", (checking,bib_id,getattr(c,checking))))
+							result.append(('missing',"Missing %s for %s, should be %d", (checking,bib_id,getattr(c,checking)),bib_id))
 				except:
-					result.append(('wrong',"Wrong date for %s: %s" , (bib_id,b['date'])))
+					result.append(('wrong',"Wrong date for %s: %s" , (bib_id,b['date']),bib_id))
 			else:
 				if 'day' in b:
 					m=self.suggestMonth(bib_id,True)
-					result.append('fix',"Missing date for %s, but day is present: %s-%02d-%s" , (bib_id,b['year'] if 'year' in b else 'error', m or 0, b['day'])))
+					result.append(('fix',"Missing date for %s, but day is present: %s-%02d-%s" , (bib_id,b['year'] if 'year' in b else 'error', m or 0, b['day']),bib_id))
 		return result
 
 	def renameKey(self,oldKey,newKey):

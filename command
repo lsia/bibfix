@@ -60,15 +60,31 @@ while stay:
 				elif (ask=='c'):
 					break
 	elif args[0]=='sugdate' or args[0]=='sd': #TODO
-		for k in tl.getkeys():
-			(sug,cur)=tl.suggestMonth(k)
-			if (sug!=cur and sug):
-				ask=raw_input("Accept to change suggested month '%s' to '%s' in paper %s? [Yes/No/Cancel] "%(cur,sug,k))
-				if (ask=='y'):
-					print "setting lang %s to %s" % (sug,k)
-					tl.put(k,'month',sug)
-				elif (ask=='c'):
-					break
+		errs=tl.checkDates()
+		for (typ,msg,vals,k) in errs:
+			print "Error found: %s" % (msg % vals)
+			toShow=['date','day','month','year']
+			current=[]
+			for field in ['date','day','month','year']:
+				v=tl.get(k,field)
+				current.append(v!=None)
+				if v:
+					print " - %s: %s" % (field,v)
+				else:
+					print " - %s missing" % field
+			current=tuple(current)
+			if typ=='fix':
+				if current==(False,True,True,True):
+					(k,y,m,d)=vals
+					newDate="%s-%02d-%s" % (y,m,d)
+					ask=raw_input("Accept to change 'day=%s' to 'date=%s' in paper %s? [Yes/No/Cancel] "%(d,newDate,k))
+					if (ask=='y'):
+						print "unsetting day"
+						tl.put(k,'day',None)
+						print "setting date to %s" % newDate
+						tl.put(k,'date',newDate)
+					elif (ask=='c'):
+						break
 	elif args[0]=='help' or args[0]=='?'  or args[0]=='h':
 		showhelp()
 	elif args[0]=='show' or args[0]=='s':

@@ -76,6 +76,13 @@ class toolLayer():
 		else:
 			self.bib.set(id,field,data)
 
+	def get(self,id,field):
+		data=self.bib.get(id).fields
+		if field in data:
+			return data[field]
+		else:
+			return None
+
 	def showpaper(self,key):
 		paper=self.bib.get(key)
 		b=paper.fields
@@ -242,9 +249,12 @@ class toolLayer():
 			print " * %s" % id
 		errs=self.bib.checkDates()
 		print "- Date errors"
-		for msg in sorted(errs):
-			print " * %s" % msg
+		for (typ,msg,vals,k) in errs:
+			print " * %s" % (msg % vals)
 	
+	def checkDates(self):
+		return self.bib.checkDates()
+
 	def suggestKeywords(self,key):
 		sug=self.bib.suggestKeywords(key)
 		result=[(k,sug[k]) for k in sug]
