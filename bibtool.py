@@ -54,7 +54,7 @@ class bibtool:
 		return self.bibdata.entries[key]
 
 	def set(self,key,kid,val):
-		if (val!=''):
+		if (val!='' and val!=None):
 			self.bibdata.entries[key].fields[kid]=val
 		else:
 			del self.bibdata.entries[key].fields[kid]

@@ -85,6 +85,22 @@ while stay:
 						tl.put(k,'date',newDate)
 					elif (ask=='c'):
 						break
+			elif typ=='missing':
+				(what,k,newVal)=vals
+				ask=raw_input("Accept to set '%s=%s' in paper %s? [Yes/No/Cancel] "%(what,newVal,k))
+				if (ask=='y'):
+					print "setting %s to %s" % (what,newVal)
+					tl.put(k,what,str(newVal))
+				elif (ask=='c'):
+					break
+			else:
+				ask=raw_input("Wrong format in date in paper %s? [Edit/Skip/Remove/Cancel] "%k)
+				if (ask in ['e','r']):
+					newVal=raw_input("Insert new value: ") if ask=='e' else None
+					print "setting date to %s" % (newVal)
+					tl.put(k,'date',newVal)
+				elif (ask=='c'):
+					break
 	elif args[0]=='help' or args[0]=='?'  or args[0]=='h':
 		showhelp()
 	elif args[0]=='show' or args[0]=='s':
