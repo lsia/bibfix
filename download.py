@@ -23,7 +23,8 @@ def getBib(stream):
 #bibdata= getBib(getDOI('10.1007/978-0-387-09695-7_16'))
 #bibdata= getBib(getISBN('9783659033940'))
 #bibdata= getBib(getDOIUrl('http://dx.doi.org/10.1007/978-0-387-09695-7_16'))
-bibdata= getBib(getDOIUrl('http://www.dblp.org/rec/bibtex/conf/ifip12/CalotBG08'))
+#bibdata= getBib(getDOIUrl('http://www.dblp.org/rec/bibtex/conf/ifip12/CalotBG08'))
+bibdata= getBib(getDOIUrl('http://dx.doi.org/10.5539/cis.v5n4p116'))
 
 if bibdata:
 	for bib_id in bibdata.entries:
