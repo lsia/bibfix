@@ -67,6 +67,12 @@ class toolLayer():
 		paper_f=self.bib.get(key).fields
 		current=paper_f['month'] if 'month' in paper_f else None
 		return (sug,current)
+
+	def suggestSimilarKeywords(self):
+		import distance
+		kw=self.bib.getKeywords()
+		for k in kw:
+			print sorted(distance.ilevenshtein(k, kw, max_dist=1))
 	
 	def put(self,id,field,data):
 		if ',' in id:

@@ -62,6 +62,7 @@ while stay:
 					break
 	elif args[0]=='mergekeywords' or args[0]=='mk':
 		print "not implemented"
+		tl.suggestSimilarKeywords()
 	elif args[0]=='sugdate' or args[0]=='sd':
 		errs=tl.checkDates()
 		for (typ,msg,vals,k) in errs:
