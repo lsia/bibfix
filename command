@@ -13,6 +13,7 @@ def showhelp():
 	print "(suggest|sg) (id)                                      - Suggest keywords"
 	print "(suglang|sl)                                           - Suggest language"
 	print "(sugmonth|sm)                                          - Suggest month"
+	print "(sugdate|sd)                                           - Suggest date (day, year and month)"
 	print "c[heck]                                                - Integrity Check"
 	print "st[atus]                                               - Check Status"
 	print "(i|commit)                                             - Commit Changes"
@@ -59,7 +60,9 @@ while stay:
 					tl.put(k,'month',sug)
 				elif (ask=='c'):
 					break
-	elif args[0]=='sugdate' or args[0]=='sd': #TODO
+	elif args[0]=='mergekeywords' or args[0]=='mk':
+		print "not implemented"
+	elif args[0]=='sugdate' or args[0]=='sd':
 		errs=tl.checkDates()
 		for (typ,msg,vals,k) in errs:
 			print "Error found: %s" % (msg % vals)
