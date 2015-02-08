@@ -68,6 +68,9 @@ class toolLayer():
 		current=paper_f['month'] if 'month' in paper_f else None
 		return (sug,current)
 
+	def suggestWrongCaseKeywords(self):
+		return [(kw,kwok) for (kw,kwok) in [(kw,toolLayer.title(kw)) for kw in self.bib.getKeywords()] if kw!=kwok]
+
 	def suggestSimilarKeywords(self,factor=0.3):
 		import distance
 		kw=set(self.bib.getKeywords())

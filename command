@@ -61,6 +61,18 @@ while stay:
 					tl.put(k,'month',sug)
 				elif (ask=='c'):
 					break
+#suggestWrongCaseKeywords
+	elif args[0]=='sugcasekeys' or args[0]=='sk':
+		for (k,k_ok) in tl.suggestWrongCaseKeywords():
+			print "y) change '%s' to '%s'?\nn) No\nc) Cancel\n" % (k,k_ok)
+			ask=raw_input("action? ")
+			if ask=='y':
+				tl.renamekeywords(k,k_ok)
+			elif (ask=='c'):
+				break
+			else:
+				print "Skipping"
+		print "Remember to commit"
 	elif args[0]=='mergekeywords' or args[0]=='mk':
 		try:
 			factor=float(args[1])
@@ -80,7 +92,6 @@ while stay:
 			else:
 				print "Skipping"
 		print "Remember to commit"
-		
 	elif args[0]=='sugdate' or args[0]=='sd':
 		errs=tl.checkDates()
 		for (typ,msg,vals,k) in errs:
