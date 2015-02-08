@@ -14,6 +14,7 @@ def showhelp():
 	print "(suglang|sl)                                           - Suggest language"
 	print "(sugmonth|sm)                                          - Suggest month"
 	print "(sugdate|sd)                                           - Suggest date (day, year and month)"
+	print "(mergekeywords|mk)                                     - Merge Similar Keywords"
 	print "c[heck]                                                - Integrity Check"
 	print "st[atus]                                               - Check Status"
 	print "(i|commit)                                             - Commit Changes"

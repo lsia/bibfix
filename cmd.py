@@ -156,6 +156,10 @@ class toolLayer():
 			return False
 		return (result,callback(result))
 
+	@staticmethod
+	def title(text):
+		return ' '.join([word.lower() if len(word)<3 else string.capwords(word) for word in text.split(" ")])
+
 	def capkeywords(self,keys):
 		for key in keys:
 			s=key.split('-')
@@ -163,7 +167,8 @@ class toolLayer():
 				(start,end)=s
 				self.capkeywords(['k%d' % k for k in range(int(start[1:]),int(end))])
 			else:
-				line=self.cap_priv(key,string.capwords,self.keywords)
+				line=self.cap_priv(key,toolLayer.title,self.keywords)
+				#line=self.cap_priv(key,string.capwords,self.keywords)
 				self.action_keywords.append(line)
 				print "fix keyw %s -> %s" % line
 	
