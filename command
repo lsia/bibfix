@@ -61,8 +61,25 @@ while stay:
 				elif (ask=='c'):
 					break
 	elif args[0]=='mergekeywords' or args[0]=='mk':
-		print "not implemented"
-		tl.suggestSimilarKeywords()
+		try:
+			factor=float(args[1])
+		except:
+			factor=0.3
+		print "Similar keywords (max similarity factor %f)" % factor
+		for (n,k1,k2) in tl.suggestSimilarKeywords(factor):
+			print "1) %s\n2) %s\nc) Cancel\ns) Skip" % (k1,k2)
+			ask=raw_input("action? ")
+			if (ask in ['1','2']):
+				if ask=='1':
+					(k1,k2)=(k2,k1)
+				print "rename '%s' to '%s'" % (k1,k2)
+				tl.renamekeywords(k1,k2)
+			elif (ask=='c'):
+				break
+			else:
+				print "Skipping"
+		print "Remember to commit"
+		
 	elif args[0]=='sugdate' or args[0]=='sd':
 		errs=tl.checkDates()
 		for (typ,msg,vals,k) in errs:

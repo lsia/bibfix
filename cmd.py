@@ -68,11 +68,14 @@ class toolLayer():
 		current=paper_f['month'] if 'month' in paper_f else None
 		return (sug,current)
 
-	def suggestSimilarKeywords(self):
+	def suggestSimilarKeywords(self,factor=0.3):
 		import distance
-		kw=self.bib.getKeywords()
-		for k in kw:
-			print sorted(distance.ilevenshtein(k, kw, max_dist=1))
+		kw=set(self.bib.getKeywords())
+		result=[]
+		while len(kw):
+			k=kw.pop()
+			result+=[(distance.nlevenshtein(k,v),v,k) for (n,v) in distance.ilevenshtein(k, kw, max_dist=int(len(k)*factor))]
+		return sorted(result)
 	
 	def put(self,id,field,data):
 		if ',' in id:
@@ -118,6 +121,9 @@ class toolLayer():
 		line=(result,string)
 		self.action_keywords.append(line)
 		print "fix keyw %s -> %s" % line
+
+	def renamekeywords(self,string1,string2):
+		self.action_keywords.append((string1,string2))
 	
 	def fixauthors(self,key,string):
 		result=None
