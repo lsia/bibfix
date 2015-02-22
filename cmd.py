@@ -186,8 +186,8 @@ class toolLayer():
 		self.action_authors.append(line)
 		print "fix auth %s -> %s" % line
 	
-	def save(self):
-		self.bib.save(self.file)
+	def save(self,file=None,fmt=None):
+		self.bib.save(file or self.file,fmt)
 	
 	def status(self):
 		for (fr,to) in self.action_authors:

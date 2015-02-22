@@ -150,7 +150,23 @@ class bibtool:
 		for keyword in keywords:
 			print keyword
 
-	def save(self,file):
+	@staticmethod
+	def formatConvert(text,frm,to):
+		import pypandoc
+		return pypandoc.convert(text,to,format=frm)
+
+	def save(self,file,fmt):
+		#TODO: perform conversion using fmt
+		#print file,fmt
+		#for bib_id in self.bibdata.entries:
+		#	for f_id in self.bibdata.entries[bib_id].fields:
+		#		v=self.bibdata.entries[bib_id].fields[f_id]
+		#		print "-----"
+		#		print bib_id,f_id
+		#		print v
+		#		print bibtool.formatConvert(v,'latex','plain')
+		
+		#return
 		writer=bibtexout.Writer()
 		stream=io.open(file, mode='w')
 		writer.write_stream(self.bibdata, stream)

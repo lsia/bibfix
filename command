@@ -20,10 +20,11 @@ def showhelp():
 	print "st[atus]                                               - Check Status"
 	print "(i|commit)                                             - Commit Changes"
 	print "r[ollback]                                             - Undo unocmmited changes"
-	print "s[ave]                                                 - Saves %s" % file
+	print "save                                                   - Saves %s" % file
 	print "(P|pdf) (a[bstarct]|f[ull]|m[eta]) (id)                - Show the contents of the paper"
 	print "(capitalize|C) (k[eyword]|a[uthor]|t[itle]) (id)       - CAPITALIZE FIRST WORD -> Capitalize First Word"
-	print "make                                                   - Copies pdf papers to public directory"
+	print "u[rls]                                                 - If a paper is in the library a laboratory public url will be added"
+	print "e[xport] (file)                                        - Saves a file in .bib format without latex notation"
 
 stay=True
 while stay:
@@ -190,8 +191,10 @@ while stay:
 			print "I don't know how to pdf %s. try help" % args[1]
 	elif args[0]=='put' or args[0]=='p':
 		tl.put(args[1],args[2],' '.join(args[3:]).decode('utf-8'))
-	elif args[0]=='save' or args[0]=='s':
+	elif args[0]=='save':
 		tl.save()
+	elif args[0]=='export' or args[0]=='e':
+		tl.save(args[1],fmt='plain')
 	elif args[0]=='commit' or args[0]=='ci' or args[0]=='i':
 		tl.commit()
 	elif args[0]=='status' or args[0]=='st':
@@ -200,7 +203,7 @@ while stay:
 		tl.rollback()
 	elif args[0]=='check' or args[0]=='c':
 		tl.check()
-	elif args[0]=='make' or args[0]=='m':
+	elif args[0]=='urls' or args[0]=='u':
 		tl.make()
 	elif args[0]=='':
 		print "Type 'help' for commands"
