@@ -3,6 +3,7 @@ import re,datetime
 from pybtex.database.output import bibtex as bibtexout
 from pybtex.core import Person
 from pybtex.utils import OrderedCaseInsensitiveDict
+from pybtex.database import Entry
 import io
 import difflib,string
 #pybtex.core.Person
@@ -37,6 +38,14 @@ class bibtool:
 			except(KeyError):
 				continue
 		return authors
+
+	def addEntry(self,k,v):
+		p={}
+		for pf in ['author','editor']:
+			if pf in v:
+				p[pf]=[Person(aux) for aux in v[pf].split(';')]
+				del v[pf]
+		self.bibdata.add_entry(k,Entry(k, fields=v, persons=p))
 
 	def renameAuthor(self,old,target):
 		old=Person(old)

@@ -25,12 +25,40 @@ def showhelp():
 	print "(capitalize|C) (k[eyword]|a[uthor]|t[itle]) (id)       - CAPITALIZE FIRST WORD -> Capitalize First Word"
 	print "u[rls]                                                 - If a paper is in the library a laboratory public url will be added"
 	print "e[xport] (file)                                        - Saves a file in .bib format without latex notation"
+	print "im[port] (url)                                         - Load metadata from URL"
 
 stay=True
+newKey=1
 while stay:
 	args=raw_input('? ').split(' ')
 	if args[0]=='exit' or args[0]=='q' or args[0]=='x':
 		stay=False
+	elif args[0]=='import' or args[0]=='im':
+		import meta
+		aux={}
+		for (k,v) in meta.read(args[1]).items():
+			print "* %s:" % k
+			print " c) Cancel import"
+			print " s) Skip field"
+			n=1
+			for iv in v:
+				print " %d) %s" % (n,iv)
+				n+=1
+			ask=raw_input("action? ")
+			if (ask=='c'):
+				aux={}
+				break
+			try:
+				result=v[int(ask)-1]
+				print "setting '%s' as '%s'" % (k,result)
+				aux[k]=result
+			except:
+				print "skipped %s" % k
+		if aux:
+			k="newkey%d"%newKey
+			print "Created %s"% k
+			tl.createPaper(k,aux)
+			newKey+=1
 	elif args[0]=='suggest' or args[0]=='sg':
 		tl.showpaper(args[1])
 		for (k,w) in tl.suggestKeywords(args[1])[0:6]:

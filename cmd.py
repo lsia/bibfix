@@ -31,12 +31,17 @@ class toolLayer():
 		self.action_keywords=[]
 		self.action_titles=[]
 		self.action_keys=[]
+
+		self.action_add={}
 	
 		#print self.authors	
 		#print self.keywords	
 
 	def addkeyword(self,key,keyword):
 		self.bib.addKeyword(key,keyword)
+
+	def createPaper(self,key,fields):
+		self.action_add[key]=fields
 
 	def showkeywords(self):
 		for keyword in self.keywords:
@@ -217,6 +222,9 @@ class toolLayer():
 			except:
 				pass
 			self.bib.renameKey(fr,to)
+		for k,v in self.action_add.items():
+			self.bib.addEntry(k,v)
+
 		self.rehash()
 
 	def check(self):
